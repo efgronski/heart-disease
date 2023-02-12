@@ -1,5 +1,7 @@
 # Project Proposal
 
+By: Beth Gronski & Jane Chea
+
 ## Summary of research questions
 Give a numbered list of 3 or more research questions and a brief description of what you will investigate. Each research question should have 1–3 sentences and propose something that can be definitively answered, not just a general topic or area of investigation.
 
