@@ -29,7 +29,7 @@ def ols_summary(dataframe: pd.DataFrame, ols_input: str):
     written as 'output ~ input + input'.
     """
     m = smf.ols(ols_input, data=dataframe).fit()
-    return m.summary()
+    return print(m.summary())
 
 
 def split_location(data: pd.DataFrame) -> pd.DataFrame:
@@ -84,8 +84,8 @@ def main():
                 "num ~ age + sex + dataset + cp + trestbps + chol + fbs \
                 + restecg + thalch + exang + oldpeak + slope + ca + thal")
     # creates summary table for statitsically significant values and location
-    print("Summary Table for most statistically significant values, \
-          including location:")
+    print("Summary Table for most statistically significant values, " +
+          "including location")
     ols_summary(heart, "num ~ cp + oldpeak + ca + dataset")
     # creates summary table for us data only
     print("Summary Table for US data only:")
