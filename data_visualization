@@ -1,0 +1,272 @@
+"""
+Beth Gronski & Jane Chea
+CSE 163 Final Project
+
+This file holds the functions to create the plots for the data visualizations
+of a heart disease dataset. This heart disease dataset comes from the UCI and
+has variables outling age, gender, location, along with some health data like
+ECG, cholesterol, blood sugar levels, and so on. These functions in the file
+supports the analysis that is done in the other two files of our project.
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+def general_ca(heart: pd.DataFrame) -> None:
+    """
+    This function plots the graph that addresses the major vessels present
+    through different stages of heart disease. It takes in the heart disease
+    dataframe and then shows a plot.
+    """
+    no_disease = heart[heart['num'] == 0]
+    disease_one = heart[heart['num'] == 1]
+    disease_two = heart[heart['num'] == 2]
+    disease_three = heart[heart['num'] == 3]
+    disease_four = heart[heart['num'] == 4]
+
+    fig, ax = plt.subplots(1, 5, figsize=(21, 6))
+
+    ax0 = sns.countplot(data=no_disease, x='ca', ax=ax[0])
+    ax0.set(xlabel='Number of Major Vessels', ylabel='Count',
+            title='No Heart Disease')
+    ax1 = sns.countplot(data=disease_one, x='ca', ax=ax[1])
+    ax1.set(xlabel='Number of Major Vessels', ylabel='Count',
+            title='Stage One Heart Disease')
+    ax2 = sns.countplot(data=disease_two, x='ca', ax=ax[2])
+    ax2.set(xlabel='Number of Major Vessels', ylabel='Count',
+            title='Stage Two Heart Disease')
+    ax3 = sns.countplot(data=disease_three, x='ca', ax=ax[3])
+    ax3.set(xlabel='Number of Major Vessels', ylabel='Count',
+            title='Stage Three Heart Disease')
+    ax4 = sns.countplot(data=disease_four, x='ca', ax=ax[4])
+    ax4.set(xlabel='Number of Major Vessels', ylabel='Count',
+            title='Stage Four Heart Disease')
+    plt.show()
+
+
+def general_cp(heart: pd.DataFrame) -> None:
+    """
+    This function plots the graph that addresses the chest pain types
+    through different stages of heart disease. It takes in heart disease
+    dataframe and then shows a plot.
+    """
+    no_disease = heart[heart['num'] == 0]
+    disease_one = heart[heart['num'] == 1]
+    disease_two = heart[heart['num'] == 2]
+    disease_three = heart[heart['num'] == 3]
+    disease_four = heart[heart['num'] == 4]
+
+    fig, ax = plt.subplots(2, 3, figsize=(35, 13))
+
+    ax0 = sns.countplot(data=no_disease, y='cp', ax=ax[0, 0])
+    ax0.set(xlabel='Count', ylabel='Chest Pain', title='No Heart Disease')
+
+    ax1 = sns.countplot(data=disease_one, y='cp', ax=ax[0, 1])
+    ax1.set(xlabel='Count', ylabel='Chest Pain',
+            title='Stage One Heart Disease')
+
+    ax2 = sns.countplot(data=disease_two, y='cp', ax=ax[0, 2])
+    ax2.set(xlabel='Count', ylabel='Chest Pain',
+            title='Stage Two Heart Disease')
+
+    ax3 = sns.countplot(data=disease_three, y='cp', ax=ax[1, 0])
+    ax3.set(xlabel='Count', ylabel='Chest Pain',
+            title='Stage Three Heart Disease')
+
+    ax4 = sns.countplot(data=disease_four, y='cp', ax=ax[1, 1])
+    ax4.set(xlabel='Count', ylabel='Chest Pain',
+            title='Stage Four Heart Disease')
+
+    fig.delaxes(ax[1][2])
+    plt.show()
+
+
+def gender_cp(heart: pd.DataFrame) -> None:
+    """
+    This functions plots the count of the types of chest pain versus
+    gender. It shows the plot with the log of the count and takes in the
+    heart disease pandas dataframe.
+    """
+    g = sns.countplot(data=heart, x='sex', hue='cp')
+    g.set_yscale("log")
+    g.set(xlabel='Gender', ylabel='Log of Count',
+          title='Gender vs. Count of Types of Chest Pain')
+    g.legend(title='Chest Pain Types')
+    plt.show()
+
+
+def gender_break_cp(heart: pd.DataFrame) -> None:
+    """
+    This functions plots the different types of chest pain broken down into
+    the individual types of chest pain and also shows the difference in
+    gender. It shows the plot with the count of the stages of heart disease
+    with each type of pain and takes in the heart disease pandas dataframe.
+    """
+    fig, ax = plt.subplots(2, 2, figsize=(15, 11))
+
+    typical_angina_heart = heart[heart['cp'] == 'typical angina']
+    ax0 = sns.countplot(data=typical_angina_heart, x='num', hue='sex',
+                        ax=ax[0, 0])
+    ax0.set(xlabel='Stage of Heart Disease', ylabel='Count',
+            title='Typical Angina Chest Pain vs. Heart Disease \
+            Progression by Gender')
+    ax0.legend(title='Gender', loc='upper right')
+
+    atypical_angina_heart = heart[heart['cp'] == 'atypical angina']
+    ax1 = sns.countplot(data=atypical_angina_heart, x='num', hue='sex',
+                        ax=ax[0, 1])
+    ax1.set(xlabel='Stage of Heart Disease', ylabel='Count',
+            title='Atypical Angina Chest Pain vs. Heart Disease \
+            Progression by Gender')
+    ax1.legend(title='Gender', loc='upper right')
+
+    non_anginal_heart = heart[heart['cp'] == 'non-anginal']
+    ax2 = sns.countplot(data=non_anginal_heart, x='num', hue='sex',
+                        ax=ax[1, 0])
+    ax2.set(xlabel='Stage of Heart Disease', ylabel='Count',
+            title='Non-Anginal Chest Pain vs. Heart Disease \
+            Progression by Gender')
+    ax2.legend(title='Gender', loc='upper right')
+
+    asymptomatic_heart = heart[heart['cp'] == 'asymptomatic']
+    ax3 = sns.countplot(data=asymptomatic_heart, x='num', hue='sex',
+                        ax=ax[1, 1])
+    ax3.set(xlabel='Stage of Heart Disease', ylabel='Count',
+            title='Asymptomatic Chest Pain vs. Heart Disease \
+            Progression by Gender')
+    ax3.legend(title='Gender', loc='upper right')
+    plt.show()
+
+
+def general_oldpeak(heart: pd.DataFrame) -> None:
+    """
+    This function plots two graphs: one boxplot and one violinplot. The
+    function shows the ST depression difference across the different
+    stages of heart disease. The function takes in the heart disease
+    pandas dataframe and shows the plots.
+    """
+    ax0 = sns.catplot(data=heart, x='num', y='oldpeak', kind='box')
+    ax0.set(xlabel='Stage of Heart Disease',
+            ylabel='ST Depression Induced by Exercise, Relative to Rest',
+            title='ST Depression Throughout Stages of Heart Disease')
+    plt.show()
+
+    ax1 = sns.catplot(data=heart, x='num', y='oldpeak', kind='violin')
+    ax1.set(xlabel='Stage of Heart Disease',
+            ylabel='ST Depression Induced by Exercise, Relative to Rest',
+            title='ST Depression Throughout Stages of Heart Disease')
+    plt.show()
+
+
+def age_heart_disease(heart: pd.DataFrame) -> None:
+    """
+    This function plots a histogram of the stages of heart disease with
+    the count of how many people have that stage for each age. The
+    function takes in a heart disease pandas dataframe and shows the
+    plot.
+    """
+    heart_disease = heart[heart['num'] != 0]
+
+    g = sns.histplot(data=heart_disease, x='age', hue='num', kde=True)
+    g.set(xlabel='Age', title='Age vs. Progression of Heart Disease')
+    g.legend(title='Heart Disease Stage', labels=['1', '2', '3', '4'])
+    plt.show()
+
+
+def age_ca(heart: pd.DataFrame) -> None:
+    """
+    This function plots the number of major vessels and the stage of
+    the heart disease for two groups: under 55 and above 55 which are
+    also separated in the function. It takes in the heart disease
+    pandas dataframe and shows the plot.
+    """
+    under55 = heart[heart.age < 55]
+    above55 = heart[heart.age >= 55]
+
+    fig, ax = plt.subplots(1, 2, figsize=(13, 6))
+
+    ax0 = sns.countplot(data=above55, x='num', hue='ca',
+                        log=True, ax=ax[1])
+    ax0.legend(title='Number of Major Vessels', loc='upper right')
+    ax0.set(xlabel='Stage of Heart Disease', ylabel='Log of Count',
+            title='Number of Major Vessels vs. Stage of Heart \
+            Disease Above 55')
+
+    ax1 = sns.countplot(data=under55, x='num', hue='ca',
+                        log=True, ax=ax[0])
+    ax1.legend(title='Number of Major Vessels', loc='upper right')
+    ax1.set(xlabel='Stage of Heart Disease', ylabel='Log of Count',
+            title='Number of Major Vessels vs. Stage \
+            of Heart Disease Under 55')
+    plt.show()
+
+
+def age_cp(heart: pd.DataFrame) -> None:
+    """
+    This function plots a histogram of the age and the specific kind
+    of chest pains. The function takes in a pandas dataframe of
+    heart disease data and then shows the plot.
+    """
+    typical_angina_heart = heart[heart['cp'] == 'typical angina']
+    non_anginal_heart = heart[heart['cp'] == 'non-anginal']
+
+    fig, ax = plt.subplots(1, 2, figsize=(13, 6))
+
+    ax1 = sns.histplot(data=typical_angina_heart, x='age',
+                       ax=ax[0], kde=True)
+    ax1.set(xlabel='Age', ylabel='Count',
+            title='Typical Anginal Chest Pain over Age')
+    ax1.set_xticks(range(30, 80, 5))
+
+    ax2 = sns.histplot(data=non_anginal_heart, x='age',
+                       ax=ax[1], kde=True)
+    ax2.set(xlabel='Age', ylabel='Count',
+            title='Non-Anginal Chest Pain over Age')
+    ax2.set_xticks(range(30, 80, 5))
+    plt.show()
+
+
+def gender_restecg(heart: pd.DataFrame) -> None:
+    """
+    This function plots the count of the types of resting ECG
+    between the genders. This function takes in a heart disease
+    pandas dataframe and shows the plot.
+    """
+    g = sns.countplot(data=heart, x='restecg', hue='sex')
+    g.set(xlabel='Rest ECG', ylabel='Count', title='Rest ECG between Genders')
+    plt.show()
+
+
+def female_restecg(heart: pd.DataFrame) -> None:
+    """
+    This function plots the data of resting ECG within the female
+    gender. This function takes in a heart disease pandas dataframe
+    and shows the plot.
+    """
+    female = heart[heart['sex'] == 'Female']
+    g = sns.countplot(data=female, hue='num', x='restecg')
+    g.set(xlabel='Rest ECG', ylabel='Count', title='Female Rest ECG Data')
+    plt.show()
+
+
+def main():
+    """
+    Calls the functions to plot the relevant data.
+    """
+    heart = pd.read_csv('heart_disease_uci.csv')
+    general_ca(heart)
+    general_cp(heart)
+    gender_cp(heart)
+    gender_break_cp(heart)
+    general_oldpeak(heart)
+    age_heart_disease(heart)
+    age_ca(heart)
+    age_cp(heart)
+    gender_restecg(heart)
+    female_restecg(heart)
+
+
+if __name__ == '__main__':
+    main()
