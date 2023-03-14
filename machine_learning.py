@@ -37,20 +37,17 @@ def remove_na(data: pd.DataFrame) -> pd.DataFrame:
     return new_data
 
 
-def fit_kneighbors_to_num(data: pd.DataFrame, X0: list(str) = ['age', 'sex', 'dataset',
-                                                               'cp', 'trestbps', 'chol', 'fbs', 
-                                                               'restecg', 'thalch', 'exang', 'oldpeak',
-                                                               'slope', 'ca', 'thal']) -> confusion_matrix:
+def fit_kneighbors_to_num(data: pd.DataFrame) -> confusion_matrix:
     """
     Takes heart data and creates a KNeighborsClassifier model. The
     predicted value is num which comes from the heart data. This function
     then runs it through a range of 1 to 25 neighbors to find the
-    best number of neighbors for our model. It will then take that ideal
-    number and output a confusion matrix.
+    best number of neighbors for our model. It will then return that ideal
+    number.
     """
     y = data['num']
-    X0 = pd.get_dummies(data[X0],
-                  drop_first=True)
+    X0 = data.drop('num', axis=1)
+    X0 = pd.get_dummies(X0, drop_first=True)
     Xt, Xv, yt, yv = train_test_split(X0, y)
     ks = range(1, 26)
     accurt = []
@@ -66,16 +63,11 @@ def fit_kneighbors_to_num(data: pd.DataFrame, X0: list(str) = ['age', 'sex', 'da
     _ = plt.plot(ks, accurv)
     maxi = max(accurv)
     index = accurv.index(maxi)
-    m = KNeighborsClassifier(index)
-    _ = m.fit(X0, y)
-    yhat = m.predict(X0)
-    return confusion_matrix(y, yhat)
+    result = print('Ideal number of Neighbors:', index)
+    return result
 
 
-def fit_kneighbors_to_has_disease(data: pd.DataFrame, X0: list(str) = ['id', 'age', 'sex', 'dataset',
-                                                               'cp', 'trestbps', 'chol', 'fbs', 
-                                                               'restecg', 'thalch', 'exang', 'oldpeak',
-                                                               'slope', 'ca', 'thal', 'num']) -> confusion_matrix:
+def fit_kneighbors_to_has_disease(data: pd.DataFrame) -> confusion_matrix:
     """
     Takes heart data and creates a KNeighborsClassifier model, and
     then runs it through a range of 1 to 25 neighbors to find the
@@ -85,8 +77,9 @@ def fit_kneighbors_to_has_disease(data: pd.DataFrame, X0: list(str) = ['id', 'ag
     """
     data['has_disease'] = (data['num'] > 0) + 0
     y = data['has_disease']
-    X0 = pd.get_dummies(data[X0],
-                  drop_first=True)
+    X0 = data.drop("has_disease", axis=1)
+    X0 = data.drop('num', axis=1)
+    X0 = pd.get_dummies(X0, drop_first=True)
     Xt, Xv, yt, yv = train_test_split(X0, y)
     ks = range(1, 26)
     accurt = []
@@ -117,7 +110,7 @@ def main():
     # Remove NA values for analysis
     heart_na = remove_na(heart)
     # run KNeighbors model for all data
-    print("Confusion Matrix and Scores for all data predicting num:")
+    print("Ideal number of neighbors, predicting num:")
     fit_kneighbors_to_num(heart_na)
     print("Confusion Matrix and Scores for all data predicting has_disease")
     fit_kneighbors_to_has_disease(heart_na)
@@ -125,7 +118,7 @@ def main():
     heart_new = heart[['ca', 'cp', 'oldpeak', 'num']]
     heart_new = remove_na(heart_new)
     # run KNeighbors model for statistically significant data
-    print("Confusion Matrix and Scores for significant data predicting num:")
+    print("Ideal number of neighbors for significant data, predicting num:")
     fit_kneighbors_to_num(heart_new)
     print("Confusion Matrix and Scores for significant data predicting has_disease")
     fit_kneighbors_to_has_disease(heart_new)
