@@ -1,6 +1,6 @@
 """
 Beth Gronski & Jane Chea
-CSE 163 Final Project
+CSE 163 Final Project - Data Visualization
 
 This file holds the functions to create the plots for the data visualizations
 of a heart disease dataset. This heart disease dataset comes from the UCI and
