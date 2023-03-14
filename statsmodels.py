@@ -11,7 +11,7 @@ an easier reading.
 # Import libraries
 import pandas as pd
 import numpy as np
-import statsmodels as smf
+import statsmodels.api as smf
 import matplotlib.pyplot as plt
 
 
@@ -29,7 +29,7 @@ def ols_summary(dataframe: pd.DataFrame, ols_input: str):
     syntax of 'output ~ input' with the option to add multiple input
     written as 'output ~ input + input'.
     """
-    m = smf.forumla.api.ols(ols_input, data = dataframe).fit()
+    m = smf.ols(ols_input, data = dataframe).fit()
     return m.summary()
 
 
