@@ -58,28 +58,28 @@ def general_cp(heart: pd.DataFrame) -> None:
     disease_three = heart[heart['num'] == 3]
     disease_four = heart[heart['num'] == 4]
 
-    fig, ax = plt.subplots(2, 3, figsize=(35, 13))
-
-    ax0 = sns.countplot(data=no_disease, y='cp', ax=ax[0, 0])
+    ax0 = sns.countplot(data=no_disease, y='cp')
     ax0.set(xlabel='Count', ylabel='Chest Pain', title='No Heart Disease')
+    plt.show()
 
-    ax1 = sns.countplot(data=disease_one, y='cp', ax=ax[0, 1])
+    ax1 = sns.countplot(data=disease_one, y='cp')
     ax1.set(xlabel='Count', ylabel='Chest Pain',
             title='Stage One Heart Disease')
+    plt.show()
 
-    ax2 = sns.countplot(data=disease_two, y='cp', ax=ax[0, 2])
+    ax2 = sns.countplot(data=disease_two, y='cp')
     ax2.set(xlabel='Count', ylabel='Chest Pain',
             title='Stage Two Heart Disease')
+    plt.show()
 
-    ax3 = sns.countplot(data=disease_three, y='cp', ax=ax[1, 0])
+    ax3 = sns.countplot(data=disease_three, y='cp')
     ax3.set(xlabel='Count', ylabel='Chest Pain',
             title='Stage Three Heart Disease')
+    plt.show()
 
-    ax4 = sns.countplot(data=disease_four, y='cp', ax=ax[1, 1])
+    ax4 = sns.countplot(data=disease_four, y='cp')
     ax4.set(xlabel='Count', ylabel='Chest Pain',
             title='Stage Four Heart Disease')
-
-    fig.delaxes(ax[1][2])
     plt.show()
 
 
@@ -104,35 +104,32 @@ def gender_break_cp(heart: pd.DataFrame) -> None:
     gender. It shows the plot with the count of the stages of heart disease
     with each type of pain and takes in the heart disease pandas dataframe.
     """
-    fig, ax = plt.subplots(2, 2, figsize=(15, 11))
-
     typical_angina_heart = heart[heart['cp'] == 'typical angina']
-    ax0 = sns.countplot(data=typical_angina_heart, x='num', hue='sex',
-                        ax=ax[0, 0])
+    ax0 = sns.countplot(data=typical_angina_heart, x='num', hue='sex')
     ax0.set(xlabel='Stage of Heart Disease', ylabel='Count',
             title='Typical Angina Chest Pain vs. Heart Disease \
             Progression by Gender')
     ax0.legend(title='Gender', loc='upper right')
+    plt.show()
 
     atypical_angina_heart = heart[heart['cp'] == 'atypical angina']
-    ax1 = sns.countplot(data=atypical_angina_heart, x='num', hue='sex',
-                        ax=ax[0, 1])
+    ax1 = sns.countplot(data=atypical_angina_heart, x='num', hue='sex')
     ax1.set(xlabel='Stage of Heart Disease', ylabel='Count',
             title='Atypical Angina Chest Pain vs. Heart Disease \
             Progression by Gender')
     ax1.legend(title='Gender', loc='upper right')
+    plt.show()
 
     non_anginal_heart = heart[heart['cp'] == 'non-anginal']
-    ax2 = sns.countplot(data=non_anginal_heart, x='num', hue='sex',
-                        ax=ax[1, 0])
+    ax2 = sns.countplot(data=non_anginal_heart, x='num', hue='sex')
     ax2.set(xlabel='Stage of Heart Disease', ylabel='Count',
             title='Non-Anginal Chest Pain vs. Heart Disease \
             Progression by Gender')
     ax2.legend(title='Gender', loc='upper right')
+    plt.show()
 
     asymptomatic_heart = heart[heart['cp'] == 'asymptomatic']
-    ax3 = sns.countplot(data=asymptomatic_heart, x='num', hue='sex',
-                        ax=ax[1, 1])
+    ax3 = sns.countplot(data=asymptomatic_heart, x='num', hue='sex')
     ax3.set(xlabel='Stage of Heart Disease', ylabel='Count',
             title='Asymptomatic Chest Pain vs. Heart Disease \
             Progression by Gender')

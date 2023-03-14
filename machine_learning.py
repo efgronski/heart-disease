@@ -1,5 +1,6 @@
 """
-Machine Learning Analysis
+Beth Gronski & Jane Chea
+CSE 153 Final Project - Machine Learning Analysis
 
 This file contains the functions used to analyze our heart disease
 data using the KNeighborsClassifier model from the sklearn library.
@@ -10,8 +11,6 @@ next to processes for an easier reading.
 
 # Import libraries
 import pandas as pd
-import numpy as np
-import statsmodels as smf
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
@@ -37,7 +36,7 @@ def remove_na(data: pd.DataFrame) -> pd.DataFrame:
     return new_data
 
 
-def fit_kneighbors_to_num(data: pd.DataFrame) -> confusion_matrix:
+def fit_kneighbors_to_num(data: pd.DataFrame) -> None:
     """
     Takes heart data and creates a KNeighborsClassifier model. The
     predicted value is num which comes from the heart data. This function
@@ -67,7 +66,7 @@ def fit_kneighbors_to_num(data: pd.DataFrame) -> confusion_matrix:
     return result
 
 
-def fit_kneighbors_to_has_disease(data: pd.DataFrame) -> confusion_matrix:
+def fit_kneighbors_to_has_disease(data: pd.DataFrame) -> None:
     """
     Takes heart data and creates a KNeighborsClassifier model, and
     then runs it through a range of 1 to 25 neighbors to find the
@@ -98,8 +97,9 @@ def fit_kneighbors_to_has_disease(data: pd.DataFrame) -> confusion_matrix:
     m = KNeighborsClassifier(index)
     _ = m.fit(X0, y)
     yhat = m.predict(X0)
-    result = print(confusion_matrix(y, yhat), 'Accuracy:', accuracy_score(y, yhat),
-                   'Recall Score:', recall_score(y, yhat), 'Precision Score',
+    result = print(confusion_matrix(y, yhat), 'Accuracy:',
+                   accuracy_score(y, yhat), 'Recall Score:',
+                   recall_score(y, yhat), 'Precision Score',
                    precision_score(y, yhat), 'F1 Score', f1_score(y, yhat))
     return result
 
@@ -120,8 +120,10 @@ def main():
     # run KNeighbors model for statistically significant data
     print("Ideal number of neighbors for significant data, predicting num:")
     fit_kneighbors_to_num(heart_new)
-    print("Confusion Matrix and Scores for significant data predicting has_disease")
+    print("Confusion Matrix and Scores for significant data predicting \
+          has_disease")
     fit_kneighbors_to_has_disease(heart_new)
+
 
 if __name__ == '__main__':
     main()
