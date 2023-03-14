@@ -12,14 +12,14 @@ It is in the file for convienence and should run with the code.
 For our analysis you will need to install the pandas, numpy, matplotlib.pyplot,
 statsmodels, and sklearn libraries. Once installed, those libraries should load
 as you run each of our files. You can see the libraries at the top of each
-Jupyter notebook file.
+Jupyter notebook files and python files.
 
 ### Analysis in Jupyter Notebooks
 Within Jupyter notebooks you should see our code, and the output we got when we ran it.
 You should be able to rerun the code yourself. Fair warning: when you rerun our machine
 learning code you will change the training and testing data which will change our results.
 However important output like our confusion matricies and scores should only fluctuate
-slightly
+slightly.
 
 ## Analysis in Python files
 When you run our files, output should automatically be generated similar to our Juypter
