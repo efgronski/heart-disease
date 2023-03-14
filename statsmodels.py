@@ -11,7 +11,7 @@ an easier reading.
 # Import libraries
 import pandas as pd
 import numpy as np
-import statsmodels.api as smf
+import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
 
 
